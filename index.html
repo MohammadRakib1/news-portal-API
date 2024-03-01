@@ -7,13 +7,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>News Portal</title>
     <link rel="stylesheet" href="index.css">
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@4.7.2/dist/full.min.css" rel="stylesheet" type="text/css" />
+    <script src="https://cdn.tailwindcss.com"></script>
 </head>
 
 <body>
-    <div id="category-bar-container" class="category-bar"></div>
+    <div id="category-bar-container" class="category-bar text-black"></div>
     <div class="search-container">
-        <input type="text" id="search-box" placeholder="type Here category name...." />
-        <button onclick="handleSearch()" id="search-btn">Search</button>
+        <input type="text" placeholder="Search..." id="search-box" class="input input-bordered w-full max-w-xs" />
+        <button class="btn btn-primary" onclick="handleSearch()" id="search-btn">Search</button>
     </div>
 
     <div id="news-container" class="news-container">
