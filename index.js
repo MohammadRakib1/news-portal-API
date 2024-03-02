@@ -4,26 +4,37 @@ const loadCategory = async () => {
 
     const categoryContainer = document.getElementById('category-bar-container');
     data.data.news_category.forEach((item) => {
-        // console.log(item)
         const div = document.createElement('div');
-
-        div.innerHTML = `<button onclick='loadNews()'>${item.category_name}</button>`;
-
+        div.innerHTML = `
+            <button onclick='loadNews("${item.category_id}")' class="nav-btn">${item.category_name}</button>
+        `;
         categoryContainer.appendChild(div);
     })
 }
 
 const loadNews = async (catId) => {
-    const res = await fetch('https://openapi.programming-hero.com/api/news/category/01');
+    // console.log(catId);
+
+    document.getElementById('loading-spiner').style.display = 'block';
+
+    const res = await fetch(`https://openapi.programming-hero.com/api/news/category/${catId}`);
     const data = await res.json();
+    // console.log(data)
+    const allData = data.data;
+
     const newsContainer = document.getElementById('news-container');
-    data.data.forEach((item) => {
-        console.log(item)
+
+    newsContainer.innerHTML = '';
+
+    allData.forEach((item) => {
+
+        document.getElementById('loading-spiner').style.display = 'none';
+
         const div = document.createElement('div');
         div.classList.add('singleNews');
         div.innerHTML = `
         <div class="news-photo">
-        <img
+        <img class="img"
           src=${item.image_url}
           alt=""
         />
@@ -31,7 +42,7 @@ const loadNews = async (catId) => {
       <div class="news-info">
         <div class="news-header">
           <h4>${item.title}</h4>
-          <p class="news-badge"> ${item.rating.badge}
+          <p class="news-badge">${item.rating.badge}
           <sup> <h6 class="news-rating">${item.rating.number} </h6></sup>
           </p>
         </div>
@@ -49,8 +60,8 @@ const loadNews = async (catId) => {
               />
             </div>
             <div class="author-info">
-              <h6>Name: ${item.author.name} </h6>
-              <p>Date: ${item.author.published_date} </p>
+              <h6>${item.author.name}</h6>
+              <p>${item.author.published_date}</p>
             </div>
           </div>
           <div class="Views author">
@@ -62,15 +73,28 @@ const loadNews = async (catId) => {
             <p>${item.total_view}</p>
           </div>
           <div class="details-btn-container">
-            <button>Details</button>
+            <button onclick="handleDetails()" class="details-btn">Details</button>
           </div>
       </div>
     </div>
         `;
         newsContainer.appendChild(div);
-    })
+    });
 }
 
-loadNews();
+const handleSearch = () => {
+    const value = document.getElementById('search-box').value;
+
+    if (value) {
+        loadNews(value)
+    }
+    else {
+        alert('Please Enter a valid Category Id')
+    }
+}
+
+
+
+loadNews('01');
 
 loadCategory();

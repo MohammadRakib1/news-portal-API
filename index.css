@@ -3,6 +3,12 @@
     padding: 0px;
 }
 
+.nav-btn {
+    padding: 20px;
+    border-radius: 10px;
+    border: none;
+}
+
 .category-bar {
     background-color: rgb(190, 188, 188);
     padding: 25px;
@@ -57,6 +63,8 @@
     /* justify-content: space-around; */
     box-shadow: 4px 4px 8px gray;
     border-radius: 5px;
+
+
 }
 
 .news-info {
@@ -129,4 +137,8 @@
     text-align: center;
     padding: 50px;
     display: none;
+}
+
+.img {
+    width: 576px;
 }
